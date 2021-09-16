@@ -1,0 +1,55 @@
+#+title: A Look at Loan-to-Deposits
+#+author: Matt Brigida
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+
+I use:
+
+#+begin_quote
+"Net loans and leases to deposits","lnlsdepr","Loans and lease financing receivables net of unearned income, allowances and reserves as a percent of total deposits."
+#+end_quote
+
+as the measure of loans and leases to deposits.
+
+#+begin_src python :exports none
+import pandas as pd
+import seaborn as sns
+sns.set_theme(style="darkgrid")
+import matplotlib.pyplot as plt
+plt.style.use("dark_background")
+
+panel = pd.read_csv('../../../1_FDIC_SDI_data/build_panel/panel_python_20210630/5_full_panel_with_state_etc.csv', header=0, sep=",", low_memory=False)
+
+panel['quarter'] = pd.to_datetime(panel['quarter'])
+
+### overall deposits to loans-----
+## "Net loans and leases to deposits","lnlsdepr","Loans and lease financing receivables net of unearned income, allowances and reserves as a percent of total deposits."
+
+print(panel["lnlsdepr"].describe())
+
+## only keep values between -1 and 2 (remember to remove for while panel)
+loans_to_deposits_censored = panel["lnlsdepr"].where(panel["lnlsdepr"] > -100)
+loans_to_deposits_censored = panel["lnlsdepr"].where(panel["lnlsdepr"] < 200)
+total_distplot = sns.distplot(loans_to_deposits_censored)
+plt.show()
+
+loans_to_deposits_censored.shape
+
+panel["censored_loans_to_dep"] = loans_to_deposits_censored
+#+end_src
+
+
+
+#+begin_src python :exports none
+## look at median and mean lnlsdepr over time (also look at firm size)
+
+panel.columns.values
+median_loans_dep = panel[["quarter", "censored_loans_to_dep", "asset"]].groupby("quarter").median()
+mean_loans_dep = panel[["quarter", "censored_loans_to_dep", "asset"]].groupby("quarter").mean()
+
+sns.relplot(x=median_loans_dep["censored_loans_to_dep"].index, y="censored_loans_to_dep", data=median_loans_dep, kind="line", )
+plt.show()
+#+end_src
+
+#+NAME: Median Loans to Deposits by Quarter
+#+fig: 1 
+[[./median_laons_to_dep.png]]
