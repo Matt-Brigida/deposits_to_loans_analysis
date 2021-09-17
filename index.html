@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-09-16 Thu 14:55 -->
+<!-- 2021-09-17 Fri 16:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A Look at Loan-to-Deposits</title>
@@ -225,6 +225,23 @@
 <body>
 <div id="content">
 <h1 class="title">A Look at Loan-to-Deposits</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4907796">1. Low Loan to Deposit Banks</a>
+<ul>
+<li><a href="#org09977aa">1.1. What about MDI Status?</a>
+<ul>
+<li><a href="#org1a5d1d4">1.1.1. Low LTD</a></li>
+<li><a href="#org96870a6">1.1.2. High LTD</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <p>
 I use:
 </p>
@@ -240,22 +257,131 @@ as the measure of loans and leases to deposits.
 </p>
 
 
-<div id="org1f02fd8" class="figure">
+<div id="org9cea077" class="figure">
 <p><img src="./median_laons_to_dep.png" alt="median_laons_to_dep.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Median Loans to Deposits by Quarter</p>
 </div>
 
 
-<div id="org498cc25" class="figure">
+<div id="org3baa431" class="figure">
 <p><img src="./mean_loans_to_dep.png" alt="mean_loans_to_dep.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Mean Loans to Deposits by Quarter</p>
 </div>
+
+
+<div id="outline-container-org4907796" class="outline-2">
+<h2 id="org4907796"><span class="section-number-2">1.</span> Low Loan to Deposit Banks</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Let's look at the banks with low LTD in 2012 and in 06302021.  Are they the same?
+</p>
+
+<pre class="example">
+Kansas City      1458
+Dallas           1437
+Chicago          1107
+Atlanta           754
+New York          620
+San Francisco     495
+Name: fdicdbs, dtype: int64
+</pre>
+
+
+
+
+<pre class="example">
+Kansas City      1068
+Dallas            940
+Chicago           817
+Atlanta           493
+San Francisco     333
+New York          314
+Name: fdicdbs, dtype: int64
+</pre>
+
+
+
+<p>
+The only difference is in the order of NY and San Francisco.
+</p>
+</div>
+
+<div id="outline-container-org09977aa" class="outline-3">
+<h3 id="org09977aa"><span class="section-number-3">1.1.</span> What about MDI Status?</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-org1a5d1d4" class="outline-4">
+<h4 id="org1a5d1d4"><span class="section-number-4">1.1.1.</span> Low LTD</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<pre class="example">
+A    0.349315
+B    0.287671
+H    0.226027
+N    0.123288
+M    0.013699
+Name: Minority Status_(Alpha_Code), dtype: float64
+</pre>
+
+
+<p>
+Proportion MDI vs non-MDI
+</p>
+
+<pre class="example">
+0.9751320047692046
+</pre>
+
+
+
+<pre class="example">
+B    0.329412
+H    0.329412
+N    0.200000
+A    0.129412
+M    0.011765
+Name: Minority Status_(Alpha_Code), dtype: float64
+</pre>
+
+
+
+<pre class="example">
+0.978562421185372
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org96870a6" class="outline-4">
+<h4 id="org96870a6"><span class="section-number-4">1.1.2.</span> High LTD</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<pre class="example">
+A    0.565445
+H    0.193717
+B    0.151832
+N    0.083770
+M    0.005236
+Name: Minority Status_(Alpha_Code), dtype: float64
+</pre>
+
+
+
+<pre class="example">
+A    0.653179
+H    0.173410
+N    0.098266
+B    0.075145
+Name: Minority Status_(Alpha_Code), dtype: float64
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Matt Brigida</p>
-<p class="date">Created: 2021-09-16 Thu 14:55</p>
+<p class="date">Created: 2021-09-17 Fri 16:13</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

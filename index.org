@@ -17,7 +17,7 @@ sns.set_theme(style="darkgrid")
 import matplotlib.pyplot as plt
 plt.style.use("dark_background")
 
-panel = pd.read_csv('../../../1_FDIC_SDI_data/build_panel/panel_python_20210630/5_full_panel_with_state_etc.csv', header=0, sep=",", low_memory=False)
+panel = pd.read_csv('../../../1_FDIC_SDI_data/build_panel/panel_python_20210630/6_final_panel_with_mdi.csv', header=0, sep=",", low_memory=False)
 
 panel['quarter'] = pd.to_datetime(panel['quarter'])
 
@@ -68,3 +68,128 @@ fig_mean.savefig("mean_loans_to_dep.png")
 #+CAPTION: Mean Loans to Deposits by Quarter
 [[./mean_loans_to_dep.png]]
 
+
+* Low Loan to Deposit Banks
+
+Let's look at the banks with low LTD in 2012 and in 06302021.  Are they the same?
+
+#+begin_src python :exports none :session dep
+panel_low_2012 = panel[panel["quarter"] == "20120331"]
+panel_low_2012 = panel_low_2012[panel_low_2012["censored_loans_to_dep"] < 72]
+panel_low_2021 = panel[panel["quarter"] == "20210331"]
+panel_low_2021 = panel_low_2021[panel_low_2021["censored_loans_to_dep"] < 72]
+#+end_src
+
+#+begin_src python :exports none :session dep
+panel_high_2012 = panel[panel["quarter"] == "20120331"]
+panel_high_2012 = panel_high_2012[panel_high_2012["censored_loans_to_dep"] > 72]
+panel_high_2021 = panel[panel["quarter"] == "20210331"]
+panel_high_2021 = panel_high_2021[panel_high_2021["censored_loans_to_dep"] > 72]
+#+end_src
+
+#+RESULTS:
+
+
+#+begin_src python :exports results :session dep
+panel_low_2012["fdicdbs"].value_counts()
+#+end_src
+
+#+RESULTS:
+: Kansas City      1458
+: Dallas           1437
+: Chicago          1107
+: Atlanta           754
+: New York          620
+: San Francisco     495
+: Name: fdicdbs, dtype: int64
+
+
+
+#+begin_src python :exports results :session dep
+panel_low_2021["fdicdbs"].value_counts()
+#+end_src
+
+#+RESULTS:
+: Kansas City      1068
+: Dallas            940
+: Chicago           817
+: Atlanta           493
+: San Francisco     333
+: New York          314
+: Name: fdicdbs, dtype: int64
+
+
+The only difference is in the order of NY and San Francisco.
+
+** What about MDI Status?
+
+*** Low LTD
+
+#+begin_src python :exports results :session dep
+panel_low_2012["Minority Status_(Alpha_Code)"].value_counts() / panel_low_2012["Minority Status_(Alpha_Code)"].value_counts().sum()
+#+end_src
+
+#+RESULTS:
+: A    0.349315
+: B    0.287671
+: H    0.226027
+: N    0.123288
+: M    0.013699
+: Name: Minority Status_(Alpha_Code), dtype: float64
+
+Proportion MDI vs non-MDI
+
+#+begin_src python :exports results :session dep
+panel_low_2012["Minority Status_(Alpha_Code)"].isnull().sum() / panel_low_2012["Minority Status_(Alpha_Code)"].shape[0]
+#+end_src
+
+#+RESULTS:
+: 0.9751320047692046
+
+
+#+begin_src python :exports results :session dep
+panel_low_2021["Minority Status_(Alpha_Code)"].value_counts() / panel_low_2021["Minority Status_(Alpha_Code)"].value_counts().sum()
+#+end_src
+
+#+RESULTS:
+: B    0.329412
+: H    0.329412
+: N    0.200000
+: A    0.129412
+: M    0.011765
+: Name: Minority Status_(Alpha_Code), dtype: float64
+
+
+#+begin_src python :exports results :session dep
+panel_low_2021["Minority Status_(Alpha_Code)"].isnull().sum() / panel_low_2021["Minority Status_(Alpha_Code)"].shape[0]
+#+end_src
+
+#+RESULTS:
+: 0.978562421185372
+
+
+*** High LTD
+
+#+begin_src python :exports results :session dep
+panel_high_2012["Minority Status_(Alpha_Code)"].value_counts() / panel_high_2012["Minority Status_(Alpha_Code)"].value_counts().sum()
+#+end_src
+
+#+RESULTS:
+: A    0.565445
+: H    0.193717
+: B    0.151832
+: N    0.083770
+: M    0.005236
+: Name: Minority Status_(Alpha_Code), dtype: float64
+
+
+#+begin_src python :exports results :session dep
+panel_high_2021["Minority Status_(Alpha_Code)"].value_counts() / panel_high_2021["Minority Status_(Alpha_Code)"].value_counts().sum()
+#+end_src
+
+#+RESULTS:
+: A    0.653179
+: H    0.173410
+: N    0.098266
+: B    0.075145
+: Name: Minority Status_(Alpha_Code), dtype: float64
