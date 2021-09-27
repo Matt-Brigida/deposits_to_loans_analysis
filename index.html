@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-09-17 Fri 16:13 -->
+<!-- 2021-09-26 Sun 17:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A Look at Loan-to-Deposits</title>
@@ -229,16 +229,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4907796">1. Low Loan to Deposit Banks</a>
+<li><a href="#org77a8cf6">1. Low Loan to Deposit Banks</a>
 <ul>
-<li><a href="#org09977aa">1.1. What about MDI Status?</a>
+<li><a href="#orgbc12dc3">1.1. What about MDI Status?</a>
 <ul>
-<li><a href="#org1a5d1d4">1.1.1. Low LTD</a></li>
-<li><a href="#org96870a6">1.1.2. High LTD</a></li>
+<li><a href="#org018e1c7">1.1.1. Low LTD</a></li>
+<li><a href="#org39d533c">1.1.2. High LTD</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><a href="#org6ff3e3a">2. Cross-sectional Regression</a></li>
 </ul>
 </div>
 </div>
@@ -257,22 +258,22 @@ as the measure of loans and leases to deposits.
 </p>
 
 
-<div id="org9cea077" class="figure">
+<div id="orgcc181d6" class="figure">
 <p><img src="./median_laons_to_dep.png" alt="median_laons_to_dep.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Median Loans to Deposits by Quarter</p>
 </div>
 
 
-<div id="org3baa431" class="figure">
+<div id="orga8d0053" class="figure">
 <p><img src="./mean_loans_to_dep.png" alt="mean_loans_to_dep.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Mean Loans to Deposits by Quarter</p>
 </div>
 
 
-<div id="outline-container-org4907796" class="outline-2">
-<h2 id="org4907796"><span class="section-number-2">1.</span> Low Loan to Deposit Banks</h2>
+<div id="outline-container-org77a8cf6" class="outline-2">
+<h2 id="org77a8cf6"><span class="section-number-2">1.</span> Low Loan to Deposit Banks</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Let's look at the banks with low LTD in 2012 and in 06302021.  Are they the same?
@@ -308,12 +309,12 @@ The only difference is in the order of NY and San Francisco.
 </p>
 </div>
 
-<div id="outline-container-org09977aa" class="outline-3">
-<h3 id="org09977aa"><span class="section-number-3">1.1.</span> What about MDI Status?</h3>
+<div id="outline-container-orgbc12dc3" class="outline-3">
+<h3 id="orgbc12dc3"><span class="section-number-3">1.1.</span> What about MDI Status?</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-org1a5d1d4" class="outline-4">
-<h4 id="org1a5d1d4"><span class="section-number-4">1.1.1.</span> Low LTD</h4>
+<div id="outline-container-org018e1c7" class="outline-4">
+<h4 id="org018e1c7"><span class="section-number-4">1.1.1.</span> Low LTD</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <pre class="example">
 A    0.349315
@@ -353,8 +354,8 @@ Name: Minority Status_(Alpha_Code), dtype: float64
 </div>
 
 
-<div id="outline-container-org96870a6" class="outline-4">
-<h4 id="org96870a6"><span class="section-number-4">1.1.2.</span> High LTD</h4>
+<div id="outline-container-org39d533c" class="outline-4">
+<h4 id="org39d533c"><span class="section-number-4">1.1.2.</span> High LTD</h4>
 <div class="outline-text-4" id="text-1-1-2">
 <pre class="example">
 A    0.565445
@@ -378,10 +379,20 @@ Name: Minority Status_(Alpha_Code), dtype: float64
 </div>
 </div>
 </div>
+
+
+<div id="outline-container-org6ff3e3a" class="outline-2">
+<h2 id="org6ff3e3a"><span class="section-number-2">2.</span> Cross-sectional Regression</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+We'll use R so we can estimate robust standard errors.
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Matt Brigida</p>
-<p class="date">Created: 2021-09-17 Fri 16:13</p>
+<p class="date">Created: 2021-09-26 Sun 17:32</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

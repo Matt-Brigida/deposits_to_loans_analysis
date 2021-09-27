@@ -74,17 +74,17 @@ fig_mean.savefig("mean_loans_to_dep.png")
 Let's look at the banks with low LTD in 2012 and in 06302021.  Are they the same?
 
 #+begin_src python :exports none :session dep
-panel_low_2012 = panel[panel["quarter"] == "20120331"]
-panel_low_2012 = panel_low_2012[panel_low_2012["censored_loans_to_dep"] < 72]
-panel_low_2021 = panel[panel["quarter"] == "20210331"]
-panel_low_2021 = panel_low_2021[panel_low_2021["censored_loans_to_dep"] < 72]
+panel_2012 = panel[panel["quarter"] == "20120331"]
+panel_low_2012 = panel_2012[panel_2012["censored_loans_to_dep"] < 72]
+panel_2021 = panel[panel["quarter"] == "20210331"]
+panel_low_2021 = panel_2021[panel_2021["censored_loans_to_dep"] < 72]
 #+end_src
 
 #+begin_src python :exports none :session dep
-panel_high_2012 = panel[panel["quarter"] == "20120331"]
-panel_high_2012 = panel_high_2012[panel_high_2012["censored_loans_to_dep"] > 72]
-panel_high_2021 = panel[panel["quarter"] == "20210331"]
-panel_high_2021 = panel_high_2021[panel_high_2021["censored_loans_to_dep"] > 72]
+panel_2012 = panel[panel["quarter"] == "20120331"]
+panel_high_2012 = panel_2012[panel_2012["censored_loans_to_dep"] > 72]
+panel_2021 = panel[panel["quarter"] == "20210331"]
+panel_high_2021 = panel_2021[panel_2021["censored_loans_to_dep"] > 72]
 #+end_src
 
 #+RESULTS:
@@ -193,3 +193,59 @@ panel_high_2021["Minority Status_(Alpha_Code)"].value_counts() / panel_high_2021
 : N    0.098266
 : B    0.075145
 : Name: Minority Status_(Alpha_Code), dtype: float64
+
+
+* Cross-sectional Regression
+
+We'll use R so we can estimate robust standard errors.
+
+
+#+begin_src python :exports results :session dep
+panel_2012.to_csv("panel_2012.csv")
+panel_2021.to_csv("panel_2021.csv")
+#+end_src
+
+#+RESULTS:
+: None
+
+#+begin_src R :exports results :session *R*
+library(readr)
+
+panel_2012 <- read_csv("./panel_2012.csv")
+panel_2021 <- read_csv("./panel_2021.csv")
+
+panel_2012$min_stat <- panel_2012$`Minority_Status_(Numeric_Code)`
+
+#+end_src
+
+#+RESULTS:
+
+
+#+begin_src R :exports results :session *R* :results output
+summary(lm(dep ~ nim + rbcrwaj + min_stat, data=panel_2012))
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+Call:
+lm(formula = dep ~ nim + rbcrwaj + min_stat, data = panel_2012)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2165218   -58649   -19873    35974  1908829 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.288e+05  5.664e+04   2.275   0.0236 *  
+nim          7.745e+01  5.352e-01 144.715   <2e-16 ***
+rbcrwaj     -4.464e+03  2.898e+03  -1.540   0.1245    
+min_stat    -1.774e+03  1.014e+04  -0.175   0.8613    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 328900 on 333 degrees of freedom
+  (11590 observations deleted due to missingness)
+Multiple R-squared:  0.9871,	Adjusted R-squared:  0.987 
+F-statistic:  8494 on 3 and 333 DF,  p-value: < 2.2e-16
+#+end_example
