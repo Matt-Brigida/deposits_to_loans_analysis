@@ -3,243 +3,37 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-09-26 Sun 17:32 -->
+<!-- 2022-12-20 Tue 09:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A Look at Loan-to-Deposits</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Matt Brigida" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: auto;
-    padding-top: 1.2em;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid black;
-  }
-  pre.src:hover:before { display: inline; margin-top: 14px;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-  }
-  .equation {
-    vertical-align: middle;
-  }
-  .equation-label {
-    display: table-cell;
-    text-align: right;
-    vertical-align: middle;
-  }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
-</style>
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
-<script type="text/javascript">
-// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
-<!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
-</script>
 </head>
 <body>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">A Look at Loan-to-Deposits</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org77a8cf6">1. Low Loan to Deposit Banks</a>
+<li><a href="#org895ba0b">1. Low Loan to Deposit Banks</a>
 <ul>
-<li><a href="#orgbc12dc3">1.1. What about MDI Status?</a>
+<li><a href="#org29e9db9">1.1. What about MDI Status?</a>
 <ul>
-<li><a href="#org018e1c7">1.1.1. Low LTD</a></li>
-<li><a href="#org39d533c">1.1.2. High LTD</a></li>
+<li><a href="#org8abd199">1.1.1. Low LTD</a></li>
+<li><a href="#org579c17a">1.1.2. High LTD</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org6ff3e3a">2. Cross-sectional Regression</a></li>
+<li><a href="#org1e2c8e3">2. Cross-sectional Regression</a></li>
 </ul>
 </div>
 </div>
@@ -258,34 +52,34 @@ as the measure of loans and leases to deposits.
 </p>
 
 
-<div id="orgcc181d6" class="figure">
+<div id="org21bdcc4" class="figure">
 <p><img src="./median_laons_to_dep.png" alt="median_laons_to_dep.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Median Loans to Deposits by Quarter</p>
 </div>
 
 
-<div id="orga8d0053" class="figure">
+<div id="org8037871" class="figure">
 <p><img src="./mean_loans_to_dep.png" alt="mean_loans_to_dep.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Mean Loans to Deposits by Quarter</p>
 </div>
 
 
-<div id="outline-container-org77a8cf6" class="outline-2">
-<h2 id="org77a8cf6"><span class="section-number-2">1.</span> Low Loan to Deposit Banks</h2>
+<div id="outline-container-org895ba0b" class="outline-2">
+<h2 id="org895ba0b"><span class="section-number-2">1.</span> Low Loan to Deposit Banks</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Let's look at the banks with low LTD in 2012 and in 06302021.  Are they the same?
 </p>
 
 <pre class="example">
-Kansas City      1458
-Dallas           1437
-Chicago          1107
-Atlanta           754
-New York          620
-San Francisco     495
+Kansas City      1464
+Dallas           1451
+Chicago          1115
+Atlanta           760
+New York          623
+San Francisco     496
 Name: fdicdbs, dtype: int64
 </pre>
 
@@ -293,12 +87,12 @@ Name: fdicdbs, dtype: int64
 
 
 <pre class="example">
-Kansas City      1068
-Dallas            940
-Chicago           817
-Atlanta           493
-San Francisco     333
-New York          314
+Kansas City      1084
+Dallas           1080
+Chicago           849
+Atlanta           540
+San Francisco     368
+New York          355
 Name: fdicdbs, dtype: int64
 </pre>
 
@@ -309,19 +103,19 @@ The only difference is in the order of NY and San Francisco.
 </p>
 </div>
 
-<div id="outline-container-orgbc12dc3" class="outline-3">
-<h3 id="orgbc12dc3"><span class="section-number-3">1.1.</span> What about MDI Status?</h3>
+<div id="outline-container-org29e9db9" class="outline-3">
+<h3 id="org29e9db9"><span class="section-number-3">1.1.</span> What about MDI Status?</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-org018e1c7" class="outline-4">
-<h4 id="org018e1c7"><span class="section-number-4">1.1.1.</span> Low LTD</h4>
+<div id="outline-container-org8abd199" class="outline-4">
+<h4 id="org8abd199"><span class="section-number-4">1.1.1.</span> Low LTD</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <pre class="example">
-A    0.349315
-B    0.287671
-H    0.226027
-N    0.123288
-M    0.013699
+A    0.346939
+B    0.292517
+H    0.224490
+N    0.122449
+M    0.013605
 Name: Minority Status_(Alpha_Code), dtype: float64
 </pre>
 
@@ -331,48 +125,48 @@ Proportion MDI vs non-MDI
 </p>
 
 <pre class="example">
-0.9751320047692046
+0.9751226941952953
 </pre>
 
 
 
 <pre class="example">
-B    0.329412
-H    0.329412
-N    0.200000
-A    0.129412
-M    0.011765
+H    0.328767
+B    0.320548
+N    0.194521
+A    0.145205
+M    0.010959
 Name: Minority Status_(Alpha_Code), dtype: float64
 </pre>
 
 
 
 <pre class="example">
-0.978562421185372
+0.9146398503274088
 </pre>
 </div>
 </div>
 
 
-<div id="outline-container-org39d533c" class="outline-4">
-<h4 id="org39d533c"><span class="section-number-4">1.1.2.</span> High LTD</h4>
+<div id="outline-container-org579c17a" class="outline-4">
+<h4 id="org579c17a"><span class="section-number-4">1.1.2.</span> High LTD</h4>
 <div class="outline-text-4" id="text-1-1-2">
 <pre class="example">
-A    0.565445
-H    0.193717
-B    0.151832
-N    0.083770
-M    0.005236
+A    0.567708
+H    0.192708
+B    0.151042
+N    0.083333
+M    0.005208
 Name: Minority Status_(Alpha_Code), dtype: float64
 </pre>
 
 
 
 <pre class="example">
-A    0.653179
-H    0.173410
-N    0.098266
-B    0.075145
+A    0.667651
+H    0.177253
+N    0.100443
+B    0.054653
 Name: Minority Status_(Alpha_Code), dtype: float64
 </pre>
 </div>
@@ -381,18 +175,72 @@ Name: Minority Status_(Alpha_Code), dtype: float64
 </div>
 
 
-<div id="outline-container-org6ff3e3a" class="outline-2">
-<h2 id="org6ff3e3a"><span class="section-number-2">2.</span> Cross-sectional Regression</h2>
+<div id="outline-container-org1e2c8e3" class="outline-2">
+<h2 id="org1e2c8e3"><span class="section-number-2">2.</span> Cross-sectional Regression</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 We'll use R so we can estimate robust standard errors.
 </p>
+
+
+<pre class="example">
+None
+</pre>
+
+
+<pre class="example" id="org6698b53">
+[1mindexing[0m [34mpanel_2012.csv[0m [===========================------] [32m679.95GB/s[0m, eta: [36m 0s[0m[1mindexing[0m [34mpanel_2012.csv[0m [===================================] [32m4.31GB/s[0m, eta: [36m 0s[0m                                                                                                                   [1m[22mNew names:
+[36m•[39m `` -&gt; `...1`
+[1mRows: [22m[34m12020[39m [1mColumns: [22m[34m138[39m
+[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ","
+[31mchr[39m   (15): theindex_panel, stalp, cbsa_metro_name, regagnt, fdicdbs, fed, N...
+[32mdbl[39m  (115): ...1, cert, year, rssd, asset, asset2, asset5, eq, intinc, einte...
+[33mlgl[39m    (5): ELNATRY, ERNASTR, LNLSNTV, DEPDASTR, RBCT1CER
+[34mdate[39m   (3): quarter, fail_date, report_date
+
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+[1mindexing[0m [34mpanel_2021.csv[0m [=================================] [32m576.71GB/s[0m, eta: [36m 0s[0m                                                                                                                   [1m[22mNew names:
+[36m•[39m `` -&gt; `...1`
+[1mRows: [22m[34m8865[39m [1mColumns: [22m[34m138[39m
+[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m ","
+[31mchr[39m   (13): theindex_panel, stalp, cbsa_metro_name, regagnt, fdicdbs, fed, N...
+[32mdbl[39m  (114): ...1, cert, year, rssd, asset, asset2, asset5, eq, intinc, einte...
+[33mlgl[39m    (8): ELNATRY, ERNASTR, LNLSNTV, DEPDASTR, rbc1rwaj, RBCT1CER, Communi...
+[34mdate[39m   (3): quarter, fail_date, report_date
+
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+Call:
+lm(formula = dep ~ nim + rbcrwaj + min_stat, data = panel_2012)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2165333   -57556   -19634    36205  1909191 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.282e+05  5.636e+04   2.276   0.0235 *  
+nim          7.745e+01  5.335e-01 145.163   &lt;2e-16 ***
+rbcrwaj     -4.460e+03  2.890e+03  -1.544   0.1236    
+min_stat    -1.677e+03  1.009e+04  -0.166   0.8682    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 327900 on 335 degrees of freedom
+  (11681 observations deleted due to missingness)
+Multiple R-squared:  0.9871,	Adjusted R-squared:  0.987 
+F-statistic:  8549 on 3 and 335 DF,  p-value: &lt; 2.2e-16
+</pre>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Matt Brigida</p>
-<p class="date">Created: 2021-09-26 Sun 17:32</p>
+<p class="date">Created: 2022-12-20 Tue 09:26</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

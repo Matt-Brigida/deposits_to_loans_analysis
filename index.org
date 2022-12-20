@@ -17,7 +17,7 @@ sns.set_theme(style="darkgrid")
 import matplotlib.pyplot as plt
 plt.style.use("dark_background")
 
-panel = pd.read_csv('../../../1_FDIC_SDI_data/build_panel/panel_python_20210630/6_final_panel_with_mdi.csv', header=0, sep=",", low_memory=False)
+panel = pd.read_csv('../../../1_FDIC_SDI_data/build_panel/panel_python_20220630/6_final_panel_with_mdi.csv', header=0, sep=",", low_memory=False)
 
 panel['quarter'] = pd.to_datetime(panel['quarter'])
 
@@ -52,7 +52,7 @@ sns.relplot(x=median_loans_dep["censored_loans_to_dep"].index, y="censored_loans
 #+end_src
 
 #+RESULTS:
-: <seaborn.axisgrid.FacetGrid object at 0x7f3982f7fb50>
+: <seaborn.axisgrid.FacetGrid object at 0x7f6ec9696a40>
 
 #+CAPTION: Median Loans to Deposits by Quarter
 [[./median_laons_to_dep.png]]
@@ -64,6 +64,7 @@ fig_mean.savefig("mean_loans_to_dep.png")
 #+end_src
 
 #+RESULTS:
+: None
 
 #+CAPTION: Mean Loans to Deposits by Quarter
 [[./mean_loans_to_dep.png]]
@@ -80,6 +81,8 @@ panel_2021 = panel[panel["quarter"] == "20210331"]
 panel_low_2021 = panel_2021[panel_2021["censored_loans_to_dep"] < 72]
 #+end_src
 
+#+RESULTS:
+
 #+begin_src python :exports none :session dep
 panel_2012 = panel[panel["quarter"] == "20120331"]
 panel_high_2012 = panel_2012[panel_2012["censored_loans_to_dep"] > 72]
@@ -95,12 +98,12 @@ panel_low_2012["fdicdbs"].value_counts()
 #+end_src
 
 #+RESULTS:
-: Kansas City      1458
-: Dallas           1437
-: Chicago          1107
-: Atlanta           754
-: New York          620
-: San Francisco     495
+: Kansas City      1464
+: Dallas           1451
+: Chicago          1115
+: Atlanta           760
+: New York          623
+: San Francisco     496
 : Name: fdicdbs, dtype: int64
 
 
@@ -110,12 +113,12 @@ panel_low_2021["fdicdbs"].value_counts()
 #+end_src
 
 #+RESULTS:
-: Kansas City      1068
-: Dallas            940
-: Chicago           817
-: Atlanta           493
-: San Francisco     333
-: New York          314
+: Kansas City      1084
+: Dallas           1080
+: Chicago           849
+: Atlanta           540
+: San Francisco     368
+: New York          355
 : Name: fdicdbs, dtype: int64
 
 
@@ -130,11 +133,11 @@ panel_low_2012["Minority Status_(Alpha_Code)"].value_counts() / panel_low_2012["
 #+end_src
 
 #+RESULTS:
-: A    0.349315
-: B    0.287671
-: H    0.226027
-: N    0.123288
-: M    0.013699
+: A    0.346939
+: B    0.292517
+: H    0.224490
+: N    0.122449
+: M    0.013605
 : Name: Minority Status_(Alpha_Code), dtype: float64
 
 Proportion MDI vs non-MDI
@@ -144,7 +147,7 @@ panel_low_2012["Minority Status_(Alpha_Code)"].isnull().sum() / panel_low_2012["
 #+end_src
 
 #+RESULTS:
-: 0.9751320047692046
+: 0.9751226941952953
 
 
 #+begin_src python :exports results :session dep
@@ -152,11 +155,11 @@ panel_low_2021["Minority Status_(Alpha_Code)"].value_counts() / panel_low_2021["
 #+end_src
 
 #+RESULTS:
-: B    0.329412
-: H    0.329412
-: N    0.200000
-: A    0.129412
-: M    0.011765
+: H    0.328767
+: B    0.320548
+: N    0.194521
+: A    0.145205
+: M    0.010959
 : Name: Minority Status_(Alpha_Code), dtype: float64
 
 
@@ -165,7 +168,7 @@ panel_low_2021["Minority Status_(Alpha_Code)"].isnull().sum() / panel_low_2021["
 #+end_src
 
 #+RESULTS:
-: 0.978562421185372
+: 0.9146398503274088
 
 
 *** High LTD
@@ -175,11 +178,11 @@ panel_high_2012["Minority Status_(Alpha_Code)"].value_counts() / panel_high_2012
 #+end_src
 
 #+RESULTS:
-: A    0.565445
-: H    0.193717
-: B    0.151832
-: N    0.083770
-: M    0.005236
+: A    0.567708
+: H    0.192708
+: B    0.151042
+: N    0.083333
+: M    0.005208
 : Name: Minority Status_(Alpha_Code), dtype: float64
 
 
@@ -188,10 +191,10 @@ panel_high_2021["Minority Status_(Alpha_Code)"].value_counts() / panel_high_2021
 #+end_src
 
 #+RESULTS:
-: A    0.653179
-: H    0.173410
-: N    0.098266
-: B    0.075145
+: A    0.667651
+: H    0.177253
+: N    0.100443
+: B    0.054653
 : Name: Minority Status_(Alpha_Code), dtype: float64
 
 
@@ -227,25 +230,24 @@ summary(lm(dep ~ nim + rbcrwaj + min_stat, data=panel_2012))
 
 #+RESULTS:
 #+begin_example
-
 Call:
 lm(formula = dep ~ nim + rbcrwaj + min_stat, data = panel_2012)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--2165218   -58649   -19873    35974  1908829 
+-2165333   -57556   -19634    36205  1909191 
 
 Coefficients:
               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  1.288e+05  5.664e+04   2.275   0.0236 *  
-nim          7.745e+01  5.352e-01 144.715   <2e-16 ***
-rbcrwaj     -4.464e+03  2.898e+03  -1.540   0.1245    
-min_stat    -1.774e+03  1.014e+04  -0.175   0.8613    
+(Intercept)  1.282e+05  5.636e+04   2.276   0.0235 *  
+nim          7.745e+01  5.335e-01 145.163   <2e-16 ***
+rbcrwaj     -4.460e+03  2.890e+03  -1.544   0.1236    
+min_stat    -1.677e+03  1.009e+04  -0.166   0.8682    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 328900 on 333 degrees of freedom
-  (11590 observations deleted due to missingness)
+Residual standard error: 327900 on 335 degrees of freedom
+  (11681 observations deleted due to missingness)
 Multiple R-squared:  0.9871,	Adjusted R-squared:  0.987 
-F-statistic:  8494 on 3 and 333 DF,  p-value: < 2.2e-16
+F-statistic:  8549 on 3 and 335 DF,  p-value: < 2.2e-16
 #+end_example
